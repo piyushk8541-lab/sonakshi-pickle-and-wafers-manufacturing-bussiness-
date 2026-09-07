@@ -3,73 +3,925 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Sonakshi Food — authentic pickles and wafers, made with care and packed for every table." />
-  <title>Sonakshi Food — Pure Ingredients. Authentic Taste.</title>
+  <meta name="description" content="Sonakshi Food — Pure Ingredients, Authentic Taste. Premium Indian pickles and crispy wafers manufacturing unit. Traditional recipes made with modern hygiene." />
+  <meta name="keywords" content="Sonakshi Food, Indian Pickles, Aam Ka Achar, Lemon Pickle, Garlic Pickle, Crispy Potato Wafers, Potato Chips, Food Manufacturing, Wholesale Food Supplier" />
+  <title>Sonakshi Food — Authentic Pickles &amp; Crispy Wafers Manufacturing</title>
+
+  <!-- Google Fonts: Playfair Display + DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..700&family=Playfair+Display:ital,wght@0,600..900;1,600..900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="noise"></div>
+  <!-- Ambient Spice Canvas & Noise Texture -->
+  <canvas id="spice-particle-canvas"></canvas>
+  <div class="bg-texture-noise"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- =========================================================
+       1. STICKY HEADER & NAVBAR
+  ========================================================== -->
   <header class="site-header" id="home">
-    <a class="brand" href="#home" aria-label="Sonakshi Food home">
-      <span class="brand-mark">SF</span>
-      <span><strong>Sonakshi</strong><small>FOOD</small></span>
+    <a class="brand-wrapper" href="#home" aria-label="Sonakshi Food Home">
+      <div class="brand-emblem">
+        <span class="brand-emblem-text">SF</span>
+      </div>
+      <div class="brand-text-block">
+        <span class="brand-title">Sonakshi</span>
+        <span class="brand-subtitle">FOOD INDUSTRIES</span>
+      </div>
     </a>
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href="#about">About</a><a href="#pickles">Pickles</a><a href="#wafers">Wafers</a><a href="#contact">Contact</a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav" aria-label="Primary Navigation">
+      <a href="#about" class="nav-link">About Us</a>
+      <a href="#pickles" class="nav-link">Pickle Catalog</a>
+      <a href="#wafers" class="nav-link">Wafer Catalog</a>
+      <a href="#process" class="nav-link">Our Process</a>
+      <a href="#wholesale" class="nav-link">Wholesale &amp; B2B</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </nav>
-    <a class="header-cta" href="#contact">Talk to us <span>↗</span></a>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- Audio Toggle Button -->
+      <button class="icon-btn" id="sound-toggle-btn" title="Toggle Sound FX" aria-label="Toggle sound effects">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+      </button>
+
+      <!-- Cart Button with Live Counter Badge -->
+      <button class="icon-btn cart-header-btn open-cart-trigger" title="View Order Summary" aria-label="Open cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span class="cart-count-badge" style="display: none;">0</span>
+      </button>
+
+      <!-- Direct WhatsApp Order Button -->
+      <a href="https://wa.me/919234610543?text=Hi%20Sonakshi%20Food,%20I%20would%20like%20to%20inquire%20about%20ordering%20pickles%20and%20wafers." target="_blank" class="button button-whatsapp" style="padding: 10px 18px; font-size: 0.85rem;" title="Chat with Sonakshi Food on WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.97.53 1.905.815 2.796.815 3.182 0 5.768-2.586 5.768-5.766 0-3.18-2.586-5.767-5.768-5.767zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.238l-7.179 1.882 1.916-6.999c-.878-1.503-1.386-3.254-1.386-5.116 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+        <span>WhatsApp Order</span>
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-menu-btn" id="mobile-nav-toggle" aria-label="Toggle Mobile Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </header>
 
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" id="mobile-nav-menu">
+    <a href="#about" class="mobile-nav-link">About Us</a>
+    <a href="#pickles" class="mobile-nav-link">Pickle Varieties</a>
+    <a href="#wafers" class="mobile-nav-link">Crispy Wafers</a>
+    <a href="#process" class="mobile-nav-link">Manufacturing Process</a>
+    <a href="#wholesale" class="mobile-nav-link">Wholesale &amp; Bulk Supply</a>
+    <a href="#contact" class="mobile-nav-link">Contact Us</a>
+    <div style="display:flex; gap:10px; margin-top:10px;">
+      <button class="button button-primary open-cart-trigger" style="flex:1;">🛒 View Cart</button>
+      <a href="tel:9234610543" class="button button-outline" style="flex:1;">📞 Call Us</a>
+    </div>
+  </div>
+
   <main>
-    <section class="hero section-pad">
-      <div class="hero-copy reveal">
-        <p class="eyebrow"><span class="eyebrow-dot"></span> Made in India · Packed with care</p>
-        <h1>Good food<br><em>starts here.</em></h1>
-        <p class="hero-lede">Pure ingredients, authentic taste — from our factory to your table.</p>
-        <p class="hero-note">A trusted pickle and wafers manufacturer known for quality, hygiene, and traditional recipes made at scale.</p>
-        <div class="hero-actions"><a class="button button-dark" href="#pickles">View products <span>↗</span></a><a class="text-link" href="#contact">Contact us <span>→</span></a></div>
-        <div class="hero-proof"><span class="proof-line"></span><span>Small-batch flavour.<br><b>Big-hearted craft.</b></span></div>
+    <!-- =========================================================
+         2. HERO SECTION (3D INTERACTIVE HIGHLIGHT)
+    ========================================================== -->
+    <section class="hero-section">
+      <div class="section-pad">
+        <div class="hero-grid">
+          <!-- Left Copy -->
+          <div class="hero-copy reveal">
+            <div class="hero-badge-pill">
+              <span class="eyebrow-dot"></span>
+              <span>Made in India · Scaled with Traditional Craft</span>
+            </div>
+
+            <h1 class="hero-title">
+              Pure Ingredients.<br>
+              <em>Authentic Taste.</em>
+            </h1>
+
+            <p class="hero-tagline">
+              "Pure Ingredients, Authentic Taste — From Our Factory to Your Table"
+            </p>
+
+            <p class="hero-desc">
+              Sonakshi Food is a trusted pickle and wafers manufacturing business known for quality, hygiene, and traditional recipes made at scale. We combine hand-selected produce and cold-pressed mustard oil with modern food-grade processing.
+            </p>
+
+            <!-- Dual CTA Buttons -->
+            <div class="hero-cta-group">
+              <a href="#pickles" class="button button-primary">
+                <span>View Products</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </a>
+
+              <a href="#contact" class="button button-outline">
+                <span>Contact Us</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+
+              <button class="button button-gold open-cart-trigger">
+                <span>🛒 Order Summary</span>
+              </button>
+            </div>
+
+            <!-- 3D Scene Controls -->
+            <div class="hero-mode-toggles">
+              <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-right:4px;">3D View:</span>
+              <button class="hero-mode-btn active" data-hero-3d-mode="all">Duo (Jar &amp; Chips)</button>
+              <button class="hero-mode-btn" data-hero-3d-mode="jar">Pickle Jar</button>
+              <button class="hero-mode-btn" data-hero-3d-mode="wafer">Wafer Chips</button>
+            </div>
+          </div>
+
+          <!-- Right 3D Interactive WebGL Visual -->
+          <div class="hero-visual-3d reveal delay-1">
+            <div id="hero-3d-canvas-wrapper" title="Click or move mouse to interact with 3D elements"></div>
+
+            <!-- Floating 3D Micro-Badges -->
+            <div class="hero-badge-float top-left">
+              <div class="badge-icon-box">🌿</div>
+              <div>
+                <strong class="badge-text-primary">100% Mustard Oil</strong>
+                <span class="badge-text-secondary">Cold-Pressed Tradition</span>
+              </div>
+            </div>
+
+            <div class="hero-badge-float bottom-right">
+              <div class="badge-icon-box">⚡</div>
+              <div>
+                <strong class="badge-text-primary">Super Crisp 1.2mm</strong>
+                <span class="badge-text-secondary">Golden Potato Wafers</span>
+              </div>
+            </div>
+
+            <div class="hero-3d-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              <span>Move mouse / Click to spin 3D</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Highlights Strip -->
+        <div class="hero-highlights-strip reveal delay-2">
+          <div class="highlight-item">
+            <div class="highlight-icon">🏺</div>
+            <div>
+              <h4 class="highlight-title">Sun-Cured Recipes</h4>
+              <p class="highlight-sub">Earthen maturation with roasted masalas</p>
+            </div>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">🛡️</div>
+            <div>
+              <h4 class="highlight-title">FSSAI Hygiene Standard</h4>
+              <p class="highlight-sub">Stainless steel automated processing</p>
+            </div>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">🏭</div>
+            <div>
+              <h4 class="highlight-title">2,500+ kg Capacity</h4>
+              <p class="highlight-sub">Daily manufacturing output for wholesale</p>
+            </div>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">🚫</div>
+            <div>
+              <h4 class="highlight-title">Zero Artificial Colors</h4>
+              <p class="highlight-sub">100% natural spices &amp; rock salt</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hero-visual reveal delay-1" aria-label="Pickles and wafers arranged on a table">
-        <div class="orb orb-a"></div><div class="orb orb-b"></div>
-        <div class="hero-image-wrap tilt-card"><img src="assets/pickle-hero.jpg" alt="Indian pickle in a jar with fresh ingredients" /></div>
-        <div class="jar-sticker">SINCE<br><strong>2018</strong></div>
-        <div class="floating-chip chip-one">✦</div><div class="floating-chip chip-two">✦</div>
-        <div class="hero-caption"><span>01</span><span>Heritage recipes<br>Modern hygiene</span></div>
+    </section>
+
+    <!-- =========================================================
+         3. MARQUEE BANNER
+    ========================================================== -->
+    <section class="marquee-banner" aria-hidden="true">
+      <div class="marquee-content">
+        <span>Authentic Indian Pickles</span>
+        <span class="star">✦</span>
+        <span>Crispy Golden Potato Wafers</span>
+        <span class="star">✦</span>
+        <span>Pure Mustard Oil Heritage</span>
+        <span class="star">✦</span>
+        <span>Hygienic Modern Manufacturing</span>
+        <span class="star">✦</span>
+        <span>Wholesale &amp; Retail Supply</span>
+        <span class="star">✦</span>
+        <span>Authentic Indian Pickles</span>
+        <span class="star">✦</span>
+        <span>Crispy Golden Potato Wafers</span>
+        <span class="star">✦</span>
+        <span>Pure Mustard Oil Heritage</span>
+        <span class="star">✦</span>
+        <span>Hygienic Modern Manufacturing</span>
+        <span class="star">✦</span>
       </div>
-      <div class="scroll-cue"><span class="scroll-line"></span> Scroll to explore</div>
     </section>
 
-    <section class="marquee"><div>Pickles <span>✳</span> Wafers <span>✳</span> Made with care <span>✳</span> Pickles <span>✳</span> Wafers <span>✳</span> Made with care <span>✳</span></div></section>
+    <!-- =========================================================
+         4. ABOUT / BUSINESS OVERVIEW
+    ========================================================== -->
+    <section class="about-section section-pad" id="about">
+      <div class="section-intro reveal">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> 01 / The Manufacturing Standard</p>
+        <h2 class="section-title">Tradition in every jar,<br><em>crunch in every bite.</em></h2>
+        <p class="section-lede">
+          At Sonakshi Food, our modern manufacturing facility bridges cherished grandma recipes with rigorous food safety standards and scalable production.
+        </p>
+      </div>
 
-    <section class="about section-pad" id="about">
-      <div class="section-intro reveal"><p class="eyebrow">01 / The Sonakshi standard</p><h2>Tradition in every<br><em>jar & crunch.</em></h2></div>
-      <div class="about-grid"><p class="about-lede reveal">We bring the familiar flavours of home to more tables — with honest ingredients, dependable processes, and recipes that have stood the test of time.</p><div class="about-body reveal delay-1"><p>From hand-selected raw mangoes to perfectly sliced potatoes, our unit is built around one simple promise: food you can feel good about serving.</p><p>Every batch is processed hygienically, checked carefully, and packed to hold on to the taste that makes people come back for more.</p><a class="text-link" href="#process">How we make it <span>→</span></a></div></div>
-      <div class="stats reveal"><div><strong>06+</strong><span>Years of<br>making</span></div><div><strong>12</strong><span>Signature<br>varieties</span></div><div><strong>1,000<span>kg</span></strong><span>Daily production<br>capacity*</span></div><p>*Indicative capacity — update with current business figures.</p></div>
-    </section>
+      <div class="about-grid-main">
+        <!-- Story & Narrative -->
+        <div class="about-narrative reveal">
+          <h3>Built on purity, hygiene, and authentic Indian flavors.</h3>
+          <p>
+            What began as a passion for time-honored pickle-making has evolved into a state-of-the-art manufacturing unit. We source premium farm-fresh raw mangoes, sun-ripened Kagzi lemons, mountain garlic, and Grade-A Chipsona potatoes directly from partnered agricultural hubs.
+          </p>
+          <p>
+            Every single batch is processed in stainless-steel grade equipment, seasoned with cold-pressed mustard oil and slow-roasted whole spices, then hermetically packed with nitrogen flush technology to retain factory-fresh crunch and authentic aroma.
+          </p>
+          <div style="display:flex; gap:16px; margin-top:28px;">
+            <a href="#process" class="button button-primary">Explore Our Process <span>↗</span></a>
+            <a href="#wholesale" class="button button-outline">Wholesale Inquiries <span>→</span></a>
+          </div>
+        </div>
 
-    <section class="catalog section-pad" id="pickles">
-      <div class="catalog-head reveal"><div><p class="eyebrow">02 / From the pickle shelf</p><h2>Bold, bright,<br><em>beautifully spiced.</em></h2></div><p>Made with raw produce, cold-pressed mustard oil, and a generous hand with the masala.</p></div>
-      <div class="product-grid">
-        <article class="product-card tilt-card reveal"><div class="product-art pickle-art mango"><span class="art-label">AAM</span><div class="art-orb"></div></div><div class="product-info"><div><h3>Classic Mango</h3><p>Raw mango · mustard oil · red chilli</p></div><b>₹___<small> / 250g</small></b></div><span class="product-arrow">↗</span></article>
-        <article class="product-card tilt-card reveal delay-1"><div class="product-art pickle-art lemon"><span class="art-label">NIMBU</span><div class="art-orb"></div></div><div class="product-info"><div><h3>Sunshine Lemon</h3><p>Lemon · fennel · asafoetida</p></div><b>₹___<small> / 250g</small></b></div><span class="product-arrow">↗</span></article>
-        <article class="product-card tilt-card reveal delay-2"><div class="product-art pickle-art garlic"><span class="art-label">LAHSUN</span><div class="art-orb"></div></div><div class="product-info"><div><h3>Garlic & Chilli</h3><p>Garlic · red chilli · nigella seeds</p></div><b>₹___<small> / 250g</small></b></div><span class="product-arrow">↗</span></article>
+        <!-- Facility Image Card -->
+        <div class="about-image-card tilt-card reveal delay-1">
+          <img src="assets/factory-facility.jpg" alt="Modern stainless steel food processing line at Sonakshi Food" />
+          <div class="about-experience-stamp">
+            <span class="stamp-years">06+</span>
+            <span class="stamp-label">Years of<br>Culinary Craft</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Grid with Animated Counters -->
+      <div class="stats-grid reveal delay-2">
+        <div class="stat-card">
+          <span class="stat-number" data-target="6" data-suffix="+">0+</span>
+          <span class="stat-label">Years of Manufacturing Heritage</span>
+          <span class="stat-sub">Delivering trust since 2018</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-number" data-target="16" data-suffix="+">0+</span>
+          <span class="stat-label">Signature Product Varieties</span>
+          <span class="stat-sub">Authentic pickles &amp; potato wafers</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-number" data-target="2500" data-suffix=" kg">0 kg</span>
+          <span class="stat-label">Daily Production Capacity</span>
+          <span class="stat-sub">High-capacity automated processing</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-number" data-target="50000" data-suffix="+">0+</span>
+          <span class="stat-label">Happy Dining Tables &amp; Retailers</span>
+          <span class="stat-sub">Supplying pan-regional distributors</span>
+        </div>
+      </div>
+
+      <!-- 4 Pillars of Excellence -->
+      <div class="pillars-grid reveal delay-3">
+        <div class="pillar-card tilt-card">
+          <div class="pillar-icon-box">🌾</div>
+          <h4>Farm-Direct Sourcing</h4>
+          <p>Hand-sorted Rajapuri mangoes and high-starch potatoes selected for texture and natural richness.</p>
+        </div>
+
+        <div class="pillar-card tilt-card">
+          <div class="pillar-icon-box">🛢️</div>
+          <h4>Cold-Pressed Mustard Oil</h4>
+          <p>Pure kachi ghani mustard oil for authentic pungency, natural preservation, and rich antioxidant profile.</p>
+        </div>
+
+        <div class="pillar-card tilt-card">
+          <div class="pillar-icon-box">🧼</div>
+          <h4>Ultrasonic Cleanliness</h4>
+          <p>Triple-stage hydro washing and automated hygiene protocol surpassing FSSAI compliance.</p>
+        </div>
+
+        <div class="pillar-card tilt-card">
+          <div class="pillar-icon-box">📦</div>
+          <h4>Aroma-Lock Packaging</h4>
+          <p>Induction seal jars and nitrogen-flushed multi-layer barrier pouches for maximum crispiness.</p>
+        </div>
       </div>
     </section>
 
-    <section class="wafers-section section-pad" id="wafers">
-      <div class="wafers-image reveal"><img src="assets/chips-bowl.jpg" alt="Crispy potato wafers in a bowl" /><div class="image-note">Crisp by<br>crisp.</div></div>
-      <div class="wafers-copy"><p class="eyebrow reveal">03 / The wafer counter</p><h2 class="reveal">The crunch<br>everyone <em>reaches for.</em></h2><p class="reveal">Thin-cut potatoes, a clean fry, and flavours that know when to stop. Our wafers are made for chai-time, snack-time, and every time in between.</p><div class="wafer-list reveal"><div><span>01</span><b>Simply Salted</b><small>Potato · refined oil · salt</small><strong>₹___ / pack</strong></div><div><span>02</span><b>Chatpata Masala</b><small>Potato · spices · black salt</small><strong>₹___ / pack</strong></div><div><span>03</span><b>Tangy Tomato</b><small>Potato · tomato · herbs</small><strong>₹___ / pack</strong></div></div><a class="button button-red reveal" href="#contact">Request the catalogue <span>↗</span></a></div>
+    <!-- =========================================================
+         5. PRODUCT CATALOG — PICKLES (ACHAR)
+    ========================================================== -->
+    <section class="catalog-section section-pad" id="pickles">
+      <div class="section-intro reveal">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> 02 / The Heritage Pickle Shelf</p>
+        <h2 class="section-title">Bold, aromatic,<br><em>steeped in tradition.</em></h2>
+        <p class="section-lede">
+          Made with raw garden produce, virgin cold-pressed mustard oil, and a generous hand with freshly roasted ground masalas. Select your jar size and order directly!
+        </p>
+      </div>
+
+      <!-- Catalog Controls: Filter pills & Search -->
+      <div class="catalog-controls reveal">
+        <div class="filter-pills-row">
+          <button class="filter-pill active" data-pickle-filter="all">All Pickles</button>
+          <button class="filter-pill" data-pickle-filter="bestseller">⭐ Best Sellers</button>
+          <button class="filter-pill" data-pickle-filter="spicy">🌶️ Fiery Spicy</button>
+          <button class="filter-pill" data-pickle-filter="tangy">🍋 Tangy &amp; Zesty</button>
+        </div>
+
+        <div class="search-bar-wrap">
+          <svg class="search-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="global-search-input" class="search-input" placeholder="Search pickles, wafers, spices..." />
+        </div>
+      </div>
+
+      <!-- 3D Pickle Product Grid -->
+      <div class="products-grid reveal delay-1" id="pickles-grid">
+        <!-- Rendered dynamically by src/app.js -->
+      </div>
     </section>
 
-    <section class="process section-pad" id="process"><div class="process-head reveal"><p class="eyebrow">04 / From source to shelf</p><h2>Care at every<br><em>single step.</em></h2></div><div class="process-steps"><div class="step reveal"><span>01</span><i>✦</i><h3>Source</h3><p>Choose produce and spices with character.</p></div><div class="step reveal delay-1"><span>02</span><i>◌</i><h3>Clean</h3><p>Wash, sort, and prep with discipline.</p></div><div class="step reveal delay-2"><span>03</span><i>◒</i><h3>Make</h3><p>Blend time-tested recipes at scale.</p></div><div class="step reveal delay-3"><span>04</span><i>□</i><h3>Pack</h3><p>Seal the flavour in every pack.</p></div><div class="step reveal delay-4"><span>05</span><i>✓</i><h3>Check</h3><p>Release only what meets our standard.</p></div></div></section>
+    <!-- =========================================================
+         6. PRODUCT CATALOG — WAFERS / CHIPS (CRUNCH)
+    ========================================================== -->
+    <section class="catalog-section section-pad" id="wafers">
+      <div class="section-intro reveal">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> 03 / The Wafer Counter</p>
+        <h2 class="section-title">The golden crunch<br><em>everyone reaches for.</em></h2>
+        <p class="section-lede">
+          Ultra-thin 1.2mm sliced farm potatoes flash-fried in clean sunflower oil and seasoned with artisanal spice dust. Perfect for tea time, parties, and daily snacking.
+        </p>
+      </div>
 
-    <section class="contact section-pad" id="contact"><div class="contact-card reveal"><div class="contact-copy"><p class="eyebrow">05 / Let's make something tasty</p><h2>Bring Sonakshi<br><em>to your table.</em></h2><p>For orders, distribution enquiries, or a conversation about our products, we would love to hear from you.</p><div class="contact-details"><a href="tel:9234610543">+91 92346 10543 <span>↗</span></a><a href="mailto:piyushk8541@gmail.com">piyushk8541@gmail.com <span>↗</span></a></div></div><form class="contact-form"><label>Your name<input name="name" required placeholder="How should we call you?" /></label><label>Email address<input type="email" name="email" required placeholder="you@company.com" /></label><label>Message<textarea name="message" rows="3" required placeholder="Tell us what you have in mind..."></textarea></label><button class="button button-light" type="submit">Send enquiry <span>↗</span></button><p class="form-status" aria-live="polite"></p></form></div></section>
+      <!-- Wafer Controls -->
+      <div class="catalog-controls reveal">
+        <div class="filter-pills-row">
+          <button class="filter-pill active" data-wafer-filter="all">All Flavors</button>
+          <button class="filter-pill" data-wafer-filter="classic">🥔 Classic Salted</button>
+          <button class="filter-pill" data-wafer-filter="spicy">🌶️ Chatpata Masala</button>
+          <button class="filter-pill" data-wafer-filter="gourmet">🧀 Cream &amp; Gourmet</button>
+        </div>
+
+        <div style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">
+          ✨ Nitrogen Flushed · 100% Trans Fat Free
+        </div>
+      </div>
+
+      <!-- 3D Wafer Product Grid -->
+      <div class="products-grid reveal delay-1" id="wafers-grid">
+        <!-- Rendered dynamically by src/app.js -->
+      </div>
+    </section>
+
+    <!-- =========================================================
+         7. MANUFACTURING PROCESS (5-STAGE TIMELINE)
+    ========================================================== -->
+    <section class="process-section section-pad" id="process">
+      <div class="section-intro reveal">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> 04 / From Source to Shelf</p>
+        <h2 class="section-title">Discipline &amp; care at<br><em>every single stage.</em></h2>
+        <p class="section-lede">
+          Take a look inside our hygienic manufacturing sequence, engineered for consistency, food safety, and authentic culinary taste.
+        </p>
+      </div>
+
+      <div class="process-timeline-wrapper">
+        <!-- Step 1 -->
+        <div class="process-step-card tilt-card reveal">
+          <div class="step-number-bubble">01</div>
+          <div class="step-icon-badge">🌱</div>
+          <h4>Source</h4>
+          <p>Direct contract procurement of raw Rajapuri mangoes, Kagzi lemons, and high-solid Chipsona potatoes.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="process-step-card tilt-card reveal delay-1">
+          <div class="step-number-bubble">02</div>
+          <div class="step-icon-badge">💧</div>
+          <h4>Clean</h4>
+          <p>Triple-stage hydro-bubble washing and laser sorting to ensure zero dirt, residue, or blemishes.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="process-step-card tilt-card reveal delay-2">
+          <div class="step-number-bubble">03</div>
+          <div class="step-icon-badge">☀️</div>
+          <h4>Cure &amp; Make</h4>
+          <p>Traditional slow earthen sun-curing with cold-pressed mustard oil and stone-ground secret spice blends.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="process-step-card tilt-card reveal delay-3">
+          <div class="step-number-bubble">04</div>
+          <div class="step-icon-badge">⚡</div>
+          <h4>Slice &amp; Pack</h4>
+          <p>Precision 1.2mm automated micro-slicing, flash frying, and nitrogen-flushed airtight hermetic packaging.</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="process-step-card tilt-card reveal delay-4">
+          <div class="step-number-bubble">05</div>
+          <div class="step-icon-badge">🛡️</div>
+          <h4>Lab Check</h4>
+          <p>Comprehensive FSSAI lab quality checks for moisture, crunch, shelf life, and balanced acidity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         8. WHOLESALE & B2B CALCULATOR
+    ========================================================== -->
+    <section class="wholesale-section section-pad" id="wholesale">
+      <div class="wholesale-box reveal">
+        <!-- Left Wholesale Info -->
+        <div class="wholesale-copy">
+          <p class="eyebrow" style="color:var(--gold-400);"><span class="eyebrow-dot" style="background:var(--gold-400);"></span> Bulk Orders &amp; Distribution</p>
+          <h2>Wholesale &amp; Private Label Manufacturing</h2>
+          <p>
+            Are you a retail chain, supermarket, regional distributor, or food service brand? Partner with Sonakshi Food for bulk supply, private labeling, and unbeatable distributor margins.
+          </p>
+
+          <div class="wholesale-perks">
+            <div class="perk-item"><span class="check">✓</span> High daily output capacity (2,500+ kg/day)</div>
+            <div class="perk-item"><span class="check">✓</span> Custom carton packing &amp; private white-label branding</div>
+            <div class="perk-item"><span class="check">✓</span> Competitive tiered wholesale volume discounts (up to 20% off)</div>
+            <div class="perk-item"><span class="check">✓</span> Pan-India reliable freight logistics &amp; GST billing</div>
+          </div>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <a href="tel:9234610543" class="button button-gold">📞 Call: 9234610543</a>
+            <a href="mailto:piyushk8541@gmail.com" class="button button-outline" style="color:#ffffff; border-color:rgba(255,255,255,0.3);">✉️ Email Inquiry</a>
+          </div>
+        </div>
+
+        <!-- Right Interactive Wholesale Calculator -->
+        <div class="wholesale-calc-card">
+          <h3>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>
+            <span>Bulk Order Estimator</span>
+          </h3>
+
+          <div class="calc-group">
+            <label for="ws-product-type">Select Variety:</label>
+            <select id="ws-product-type" class="calc-select">
+              <option value="mango-pickle">Classic Mango Pickle (Cartons of 24 x 500g)</option>
+              <option value="lemon-pickle">Sunshine Lemon Pickle (Cartons of 24 x 500g)</option>
+              <option value="garlic-pickle">Spicy Garlic Pickle (Cartons of 24 x 500g)</option>
+              <option value="mixed-pickle">Royal Mixed Vegetable (Cartons of 24 x 500g)</option>
+              <option value="salted-wafer">Simply Salted Wafers (Cartons of 48 x 120g)</option>
+              <option value="masala-wafer">Chatpata Masala Wafers (Cartons of 48 x 120g)</option>
+              <option value="tomato-wafer">Tangy Tomato Wafers (Cartons of 48 x 120g)</option>
+            </select>
+          </div>
+
+          <div class="calc-group">
+            <label for="ws-carton-count">Number of Master Cartons:</label>
+            <input type="number" id="ws-carton-count" class="calc-input" value="15" min="5" max="500" step="5" />
+          </div>
+
+          <div class="calc-result-box">
+            <div class="result-metric">
+              <small>Total Batch Weight</small>
+              <strong id="ws-calc-kg">360 kg</strong>
+            </div>
+            <div class="result-metric">
+              <small id="ws-calc-discount">10% Bulk Discount</small>
+              <strong id="ws-calc-est-price">₹60,750</strong>
+            </div>
+          </div>
+
+          <button class="button button-whatsapp" id="ws-request-quote-btn" style="width:100%;">
+            <span>Request Official Wholesale Rate Sheet</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         9. CONTACT & FACTORY LOCATION
+    ========================================================== -->
+    <section class="contact-section section-pad" id="contact">
+      <div class="contact-layout">
+        <!-- Contact Information Card -->
+        <div class="contact-info-card reveal">
+          <div>
+            <p class="eyebrow" style="color:var(--gold-300);"><span class="eyebrow-dot" style="background:var(--gold-300);"></span> 05 / Get In Touch</p>
+            <h3>Bring Sonakshi to your table or store shelves.</h3>
+            <p>
+              For consumer orders, bulk distribution enquiries, dealership applications, or visiting our manufacturing unit, we would love to hear from you.
+            </p>
+
+            <div class="contact-methods">
+              <div class="method-row">
+                <div class="method-icon">📞</div>
+                <div class="method-detail">
+                  <small>Call &amp; WhatsApp</small>
+                  <a href="tel:9234610543">+91 92346 10543</a>
+                </div>
+              </div>
+
+              <div class="method-row">
+                <div class="method-icon">✉️</div>
+                <div class="method-detail">
+                  <small>Email Address</small>
+                  <a href="mailto:piyushk8541@gmail.com">piyushk8541@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="method-row">
+                <div class="method-icon">🏭</div>
+                <div class="method-detail">
+                  <small>Manufacturing Facility</small>
+                  <span>Sonakshi Food Industries, Food Processing Cluster, Industrial Area, Patna, Bihar, India - 800013</span>
+                </div>
+              </div>
+
+              <div class="method-row">
+                <div class="method-icon">⏰</div>
+                <div class="method-detail">
+                  <small>Operating Hours</small>
+                  <span>Mon – Sat: 8:00 AM – 7:30 PM (IST)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Icons Row -->
+          <div class="contact-social-row">
+            <a href="https://wa.me/919234610543" target="_blank" class="social-icon-btn" title="WhatsApp" aria-label="WhatsApp">💬</a>
+            <a href="tel:9234610543" class="social-icon-btn" title="Phone Call" aria-label="Call">📞</a>
+            <a href="mailto:piyushk8541@gmail.com" class="social-icon-btn" title="Email" aria-label="Email">✉️</a>
+            <a href="#about" class="social-icon-btn" title="Facility Information" aria-label="Info">🏭</a>
+          </div>
+        </div>
+
+        <!-- Contact Form Card -->
+        <div class="contact-form-card reveal delay-1">
+          <h3>Send Us a Message</h3>
+          <p class="form-sub">Fill in your inquiry below and our management team will reach out within 2 business hours.</p>
+
+          <form id="main-contact-form">
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label for="c-name">Your Full Name *</label>
+                <input type="text" id="c-name" name="name" required class="form-input" placeholder="e.g. Rajesh Kumar" />
+              </div>
+
+              <div class="form-field">
+                <label for="c-phone">Phone Number (WhatsApp) *</label>
+                <input type="tel" id="c-phone" name="phone" required class="form-input" placeholder="e.g. 9876543210" />
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label for="c-email">Email Address</label>
+                <input type="email" id="c-email" name="email" class="form-input" placeholder="you@example.com" />
+              </div>
+
+              <div class="form-field">
+                <label for="c-inquiry-type">Inquiry Type *</label>
+                <select id="c-inquiry-type" name="inquiryType" class="form-select">
+                  <option value="Direct Consumer Order">Direct Consumer Order</option>
+                  <option value="Wholesale Dealership">Wholesale Dealership / Distribution</option>
+                  <option value="Private Label / White Label">Private Label / White Label Contract</option>
+                  <option value="Hotel & Catering Supply">Hotel &amp; Catering Supply (HoReCa)</option>
+                  <option value="General Feedback">General Feedback</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="c-msg">Your Message / Order Requirement *</label>
+              <textarea id="c-msg" name="message" rows="4" required class="form-textarea" placeholder="Tell us which pickle or wafer varieties you need, quantities, delivery destination, or questions..."></textarea>
+            </div>
+
+            <button type="submit" class="button button-primary" style="width:100%; padding:14px;">
+              <span>Send Enquiry to Sonakshi Food</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+
+            <div id="contact-form-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><a class="brand" href="#home"><span class="brand-mark">SF</span><span><strong>Sonakshi</strong><small>FOOD</small></span></a><p>Pure ingredients. Authentic taste.</p><div><a href="#about">About</a><a href="#pickles">Products</a><a href="#contact">Contact</a></div></footer>
-  <script src="script.js"></script>
+
+  <!-- =========================================================
+       10. SLIDE-IN CART & ORDER SUMMARY DRAWER
+  ========================================================== -->
+  <div class="cart-drawer-overlay" id="cart-overlay"></div>
+
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Order Summary">
+    <div class="cart-drawer-header">
+      <h3 class="cart-drawer-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span>Order Summary</span>
+      </h3>
+      <button class="cart-close-btn" id="close-cart-btn" aria-label="Close cart">×</button>
+    </div>
+
+    <!-- Free Delivery Progress Meter -->
+    <div class="free-delivery-meter-box">
+      <p class="meter-text" id="free-delivery-text">Add <b>₹500</b> more for <b>FREE Delivery</b></p>
+      <div class="meter-bar">
+        <div class="meter-fill" id="free-delivery-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items Scrollable List -->
+    <div class="cart-drawer-items" id="cart-drawer-items">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="cart-empty-state" id="cart-empty-state">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+      <h4>Your Order Box is Empty</h4>
+      <p style="font-size:0.85rem; margin-top:6px;">Add delicious pickles or crunchy wafers from the catalog to get started.</p>
+    </div>
+
+    <!-- Cart Footer & Checkout Actions -->
+    <div class="cart-drawer-footer" id="cart-drawer-footer">
+      <div class="drawer-notes-wrap">
+        <textarea id="drawer-order-notes" rows="2" placeholder="Add special delivery notes or spice preference..."></textarea>
+      </div>
+
+      <div class="cart-totals-breakdown">
+        <div class="total-row">
+          <span>Item Subtotal:</span>
+          <span id="cart-subtotal-val">₹0</span>
+        </div>
+        <div class="total-row">
+          <span>Standard Packaging:</span>
+          <span style="color:#22c55e; font-weight:600;">FREE (Air-Tight Sealed)</span>
+        </div>
+        <div class="total-row grand-total">
+          <span>Estimated Total:</span>
+          <span id="cart-total-val">₹0</span>
+        </div>
+      </div>
+
+      <div class="drawer-actions-grid">
+        <button class="button button-whatsapp" id="drawer-whatsapp-btn" style="width:100%;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.97.53 1.905.815 2.796.815 3.182 0 5.768-2.586 5.768-5.766 0-3.18-2.586-5.767-5.768-5.767zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.238l-7.179 1.882 1.916-6.999c-.878-1.503-1.386-3.254-1.386-5.116 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+          <span>Send Order via WhatsApp</span>
+        </button>
+
+        <div style="display:flex; gap:10px;">
+          <button class="button button-primary" id="drawer-checkout-btn" style="flex:2;">
+            <span>Proceed to Checkout</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <button class="button button-outline" id="clear-cart-btn" style="flex:1; padding:10px;">
+            <span>Clear</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================
+       11. 3D PRODUCT TURNTABLE INSPECTOR MODAL
+  ========================================================== -->
+  <div class="app-modal" id="product-3d-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <button class="modal-close-btn" aria-label="Close 3D modal">×</button>
+
+      <div class="product-3d-modal-grid">
+        <!-- 3D Turntable Viewport -->
+        <div class="modal-3d-viewport">
+          <div id="product-3d-turntable"></div>
+          <div class="viewport-tools">
+            <button class="viewport-btn" id="modal-burst-spices-btn">✨ Spice Burst</button>
+            <span class="viewport-btn" style="pointer-events:none;">🖱️ Drag to Rotate 360°</span>
+          </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="modal-product-details">
+          <h3 class="modal-title">Product Name</h3>
+          <span class="modal-hindi">हिंदी नाम</span>
+          <p class="modal-desc">Product detailed description...</p>
+
+          <strong style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; display:block;">Authentic Ingredients:</strong>
+          <ul class="modal-ingredients"></ul>
+
+          <strong style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; display:block;">Nutritional Values (per 100g):</strong>
+          <div class="modal-nutrition"></div>
+
+          <strong style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; display:block;">Select Pack Size:</strong>
+          <div class="modal-sizes"></div>
+
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:14px;">
+            <span>Shelf Life: <b class="modal-shelf" style="color:var(--earth-900);">12 Months</b></span> ·
+            <span>Packaging: <b class="modal-pack" style="color:var(--earth-900);">Airtight Jar</b></span>
+          </div>
+
+          <div class="modal-footer-action">
+            <div class="modal-current-price">₹120</div>
+            <button class="button button-primary" id="modal-add-to-cart-btn">
+              <span>Add to Cart</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       12. DIRECT CHECKOUT FORM MODAL
+  ========================================================== -->
+  <div class="app-modal" id="checkout-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card checkout-modal-card">
+      <button class="modal-close-btn" aria-label="Close checkout">×</button>
+
+      <h3>Complete Your Order</h3>
+      <p>Enter your delivery details. Your order summary will be pre-formatted and sent directly via WhatsApp or phone for immediate factory dispatch.</p>
+
+      <div class="checkout-items-box" id="checkout-items-summary">
+        <!-- Injected by JavaScript -->
+      </div>
+
+      <form id="checkout-form">
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label>Your Name *</label>
+            <input type="text" name="name" required class="form-input" placeholder="Full name" />
+          </div>
+
+          <div class="form-field">
+            <label>Phone Number (WhatsApp) *</label>
+            <input type="tel" name="phone" required class="form-input" placeholder="10-digit mobile number" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Order Category *</label>
+          <select name="orderType" class="form-select">
+            <option value="Retail Consumer Order (Home Delivery)">Retail Consumer Order (Home Delivery)</option>
+            <option value="Wholesale Distributor / Shopkeeper Order">Wholesale Distributor / Shopkeeper Order</option>
+            <option value="HoReCa / Catering Bulk Order">HoReCa / Catering Bulk Order</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Complete Delivery Address *</label>
+          <textarea name="address" rows="2" required class="form-textarea" placeholder="House/Shop No., Street, Landmark..."></textarea>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label>City / District *</label>
+            <input type="text" name="city" required class="form-input" placeholder="e.g. Patna" />
+          </div>
+
+          <div class="form-field">
+            <label>Pincode *</label>
+            <input type="text" name="pincode" required class="form-input" placeholder="e.g. 800001" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Special Instructions (Optional)</label>
+          <input type="text" name="notes" class="form-input" placeholder="e.g. Please send freshly packed batch" />
+        </div>
+
+        <button type="submit" class="button button-whatsapp" style="width:100%; padding:14px; margin-top:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.97.53 1.905.815 2.796.815 3.182 0 5.768-2.586 5.768-5.766 0-3.18-2.586-5.767-5.768-5.767zm9.969 5.766c0 5.518-4.482 10-10 10-1.745 0-3.385-.45-4.821-1.238l-7.179 1.882 1.916-6.999c-.878-1.503-1.386-3.254-1.386-5.116 0-5.518 4.482-10 10-10 5.518 0 10 4.482 10 10z"/></svg>
+          <span>Send Order via WhatsApp (+91 9234610543)</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       13. PRICE RATE CUSTOMIZER MODAL (BUSINESS STAFF MODE)
+  ========================================================== -->
+  <div class="app-modal" id="price-manager-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card price-manager-card">
+      <button class="modal-close-btn" aria-label="Close price manager">×</button>
+      <h3 class="price-manager-title">Customize Rate Placeholder</h3>
+      <form id="price-manager-form">
+        <!-- Injected dynamically -->
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       14. FLOATING MOBILE CART PILL
+  ========================================================== -->
+  <button class="floating-cart-pill open-cart-trigger" id="floating-cart-pill" aria-label="View current cart">
+    <div class="float-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+    </div>
+    <div class="float-details">
+      <span class="float-count">0 items</span>
+      <span class="float-total">₹0</span>
+    </div>
+    <span style="font-size:0.8rem; font-weight:700; color:var(--gold-400);">View Order ↗</span>
+  </button>
+
+  <!-- =========================================================
+       15. FOOTER
+  ========================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <!-- Brand Col -->
+        <div class="footer-col footer-brand-col">
+          <div class="brand-wrapper">
+            <div class="brand-emblem">
+              <span class="brand-emblem-text">SF</span>
+            </div>
+            <div class="brand-text-block">
+              <span class="brand-title">Sonakshi</span>
+              <span class="brand-subtitle">FOOD INDUSTRIES</span>
+            </div>
+          </div>
+          <p class="footer-tagline">
+            Pure Ingredients, Authentic Taste — From Our Factory to Your Table. Small-batch flavor backed by big-hearted craft.
+          </p>
+          <div class="footer-fssai-badge">
+            <span>🛡️</span>
+            <span>FSSAI Certified Food Processing Facility</span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Our Unit</a></li>
+            <li><a href="#pickles">Pickle Catalog</a></li>
+            <li><a href="#wafers">Wafer Crunch</a></li>
+            <li><a href="#process">5-Stage Journey</a></li>
+            <li><a href="#wholesale">Wholesale &amp; Dealership</a></li>
+          </ul>
+        </div>
+
+        <!-- Varieties -->
+        <div class="footer-col">
+          <h4>Signature Flavors</h4>
+          <ul class="footer-links">
+            <li><a href="#pickles">Classic Raw Mango (Aam)</a></li>
+            <li><a href="#pickles">Sunshine Kagzi Lemon</a></li>
+            <li><a href="#pickles">Spicy Garlic &amp; Red Chilli</a></li>
+            <li><a href="#wafers">Simply Salted Wafers</a></li>
+            <li><a href="#wafers">Chatpata Masala Chips</a></li>
+            <li><a href="#wafers">Tangy Tomato Crunch</a></li>
+          </ul>
+        </div>
+
+        <!-- Business Contacts -->
+        <div class="footer-col">
+          <h4>Direct Contacts</h4>
+          <ul class="footer-links">
+            <li><strong>Phone:</strong> <a href="tel:9234610543">+91 92346 10543</a></li>
+            <li><strong>WhatsApp:</strong> <a href="https://wa.me/919234610543" target="_blank">+91 92346 10543</a></li>
+            <li><strong>Email:</strong> <a href="mailto:piyushk8541@gmail.com">piyushk8541@gmail.com</a></li>
+            <li><strong>Factory:</strong> Industrial Food Park, Patna, Bihar, India</li>
+            <li style="margin-top:10px;">
+              <button id="reset-all-prices-btn" style="font-size:0.75rem; color:var(--gold-400); text-decoration:underline;">
+                Reset Custom Price Placeholders
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Sonakshi Food Industries. All rights reserved. Made with pure ingredients and traditional care.</p>
+        <p>Contact: <a href="tel:9234610543">9234610543</a> | <a href="mailto:piyushk8541@gmail.com">piyushk8541@gmail.com</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Bundle -->
+  <script type="module" src="src/app.js"></script>
 </body>
 </html>
